@@ -11,6 +11,7 @@ import logo_2 from './paragraph.png';
 import { Grid } from 'semantic-ui-react';
 import StepsMenu from './StepsMenu';
 import MainMap from './mainMap.jsx'
+import Step1 from './step_1'
 
 class App extends Component {
   render() {
@@ -29,7 +30,7 @@ class App extends Component {
             <Grid.Column mobile={16} tablet={8} computer={12}>
               <h1>Map or whatever</h1>
               <img src={logo_2} alt="logo_2" />
-              <Route path='/step1' render={() => {
+              <Route path='/step1' component={Step1} render={() => {
                 return <h1>Step 1</h1>
               }} />
               <Route path='/step2' component={MainMap}/>
