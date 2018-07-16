@@ -10,7 +10,7 @@ import {
 import logo_2 from './paragraph.png';
 import { Grid } from 'semantic-ui-react';
 import StepsMenu from './StepsMenu';
-
+import MainMap from './mainMap.jsx'
 
 class App extends Component {
   render() {
@@ -32,9 +32,7 @@ class App extends Component {
               <Route path='/step1' render={() => {
                 return <h1>Step 1</h1>
               }} />
-              <Route path='/step2' render={() => {
-                return <h1>Step 2</h1>
-              }} />
+              <Route path='/step2' component={MainMap}/>
               <Route path='/step3' render={() => {
                 return <h1>Step 3</h1>
               }} />
@@ -54,7 +52,6 @@ class App extends Component {
           </Grid.Row>
         </Grid>
       </Router>
-
     );
   }
 }
