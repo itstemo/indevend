@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "geo-distance": "^0.1.2",
+    "geo-distance-js": "^1.0.0",
+    "geolib": "^2.0.24",
     "leaflet": "^1.3.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

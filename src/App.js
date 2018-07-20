@@ -10,7 +10,7 @@ import {
 import logo_2 from './paragraph.png';
 import { Grid } from 'semantic-ui-react';
 import StepsMenu from './StepsMenu';
-import MainMap from './mainMap.jsx'
+import MainMap from './mainMap.js'
 import Step1 from './step_1'
 
 class App extends Component {
