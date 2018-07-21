@@ -1,7 +1,11 @@
 import React, {Component, createRef} from 'react'
 import {Map, TileLayer, Marker} from 'react-leaflet'
 import Leaflet from 'leaflet'
+import PrintControl from 'react-leaflet-easyprint';
+var leafletImage = require("leaflet-image")
+
 var geolib = require('geolib')
+
 
 var feetPerMeter = 3.28084;
 
@@ -41,7 +45,19 @@ export default class MainMap extends Component {
             res.push(closestSpots);
             
           }
+          const map = this.mapRef.current.leafletElement
           this.props.handleClickResult(res);
+          leafletImage(map, function(err, canvas) {
+          // now you have canvas
+          // example thing to do with that canvas:
+          var img = document.createElement('img');
+          var dimensions = map.getSize();
+          img.width = dimensions.x;
+          img.height = dimensions.y;
+          img.src = canvas.toDataURL();
+          document.getElementById('images').innerHTML = '';
+          document.getElementById('images').appendChild(img);
+      });
           
           
           
@@ -50,6 +66,7 @@ export default class MainMap extends Component {
         url= "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png"
         attribution="Wikimedia maps beta | &copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"/>
         </Map>
+        <div id="images"></div>
       </div>
     );
   }
