@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Form } from 'semantic-ui-react';
+import { Card, Form, Message } from 'semantic-ui-react';
 
 class ApplicationForm extends Component {
   state = {
@@ -13,16 +13,13 @@ class ApplicationForm extends Component {
     car_model: '',
     car_plate: '',
 
-    submittedName: '',
-    submittedEmail: ''
+    form_success: false,
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleSubmit = () => {
-    const { name, email } = this.state
-
-    this.setState({ submittedName: name, submittedEmail: email })
+    this.setState({form_success: true})
   }
 
 
@@ -37,15 +34,13 @@ class ApplicationForm extends Component {
       end_time_of_day,
       car_model,
       car_plate,
-
-      submittedName,
-      submittedEmail
+      form_success
     } = this.state;
 
     return (
       <Card fluid>
         <Card.Content>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} success={form_success}>
             <Form.Group>
               <Form.Input
                 label='Full Name'
@@ -137,12 +132,10 @@ class ApplicationForm extends Component {
             <Form.Group>
               <Form.Button content='Submit' />
             </Form.Group>
+
+            <Message success header='Form Completed' content="Your data has been saved!" />
           </Form>
           </Card.Content>
-        {/* <strong>onChange:</strong>
-        <pre>{JSON.stringify({ name, email }, null, 2)}</pre>
-        <strong>onSubmit:</strong>
-        <pre>{JSON.stringify({ submittedName, submittedEmail }, null, 2)}</pre> */}
       </Card>
     );
   }
