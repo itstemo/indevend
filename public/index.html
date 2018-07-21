@@ -12,6 +12,10 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css"></link>
+    <!-- <script src="//cdn.rawgit.com/phihag/pdfform.js/dist/dist/pdfform.minipdf.dist.js"></script> -->
+    <!-- <script src="//cdn.rawgit.com/phihag/pdfform.js/dist/dist/pdfform.pdf_js.dist.js"></script> -->
+    <script src="./pdfform.pdf_js.dist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.0.0/FileSaver.min.js"></script>
 
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
@@ -29,6 +33,81 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
+
+    <script>
+
+    function load_MFF_verification(){
+      var xhr1 = new XMLHttpRequest();
+      xhr1.open('GET', "MFF_verification.pdf", true);
+      xhr1.responseType = 'arraybuffer';
+
+      var buf1;
+      var fields1;
+      xhr1.onload = function() {
+        buf1 = xhr1.response;
+        fields1 = pdfform().list_fields(buf1);
+        MFF_verification_fields = fields1;
+      }
+      xhr1.send();
+    }
+
+    function load_MFF_application(){
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open('GET', "MFF_application.pdf", true);
+      xhr2.responseType = 'arraybuffer';
+
+      var buf2;
+      // var fields;
+      xhr2.onload = function() {
+        buf2 = xhr2.response;
+        fields2 = pdfform().list_fields(buf2);
+        MFF_application_fields = fields2;//pdfform().list_fields(buf2);
+        // load_MFF_verification();
+      }
+      xhr2.send();
+    }
+    function load_food_app(){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', "mobile_food_application.pdf", true);
+      xhr.responseType = 'arraybuffer';
+      var buf;
+      var fields;
+      xhr.onload = function() {
+        buf = xhr.response;
+        fields = pdfform().list_fields(buf);
+        food_app_fields = fields;
+        FOOD_BUFF = buf;
+      }
+      xhr.send();
+    }
+    var food_app_fields, MFF_verification_fields, MFF_application_fields;
+    var FOOD_BUFF;
+    load_food_app();
+    load_MFF_application();
+    load_MFF_verification();
+
+    function fill_apps(fields) {
+      fill_food_app(FOOD_BUFF, fields);
+    }
+    function fill_food_app(buf, fields){
+      fill_fields = {
+          'Applicant Name' : [],
+          'Business / DBA Name': [],
+          'Mailing Address 1': [],
+          'Commissary Address City': [],
+          'Phone #': [],
+          'State': [],
+          'State_2': [],
+          "Proposed Location 1": [],
+          "Proposed Menu": [],
+      }
+      var filled_pdf; // Uint8Array
+      filled_pdf = pdfform().transform(buf, fill_fields);
+      var blob = new Blob([filled_pdf], {type: 'application/pdf'});
+      saveAs(blob, 'pdfform.js_generated.pdf');
+    }
+    </script>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
