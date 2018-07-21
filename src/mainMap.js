@@ -1,6 +1,8 @@
 import React, {Component, createRef} from 'react'
 import {Map, TileLayer, Marker} from 'react-leaflet'
 import Leaflet from 'leaflet'
+import {Segment} from 'semantic-ui-react';
+// import PrintControl from 'react-leaflet-easyprint';
 import PrintControl from 'react-leaflet-easyprint';
 var leafletImage = require("leaflet-image")
 var jsDoc = require("jspdf")
@@ -15,39 +17,69 @@ function closestPoints(location, locationArray, distanceLimit) {
   distanceLimit = distanceLimit/feetPerMeter;
   var closestSpots = [];
   for (var i = 0; i < locationArray.length; i++) {
-    var distance = geolib.getDistance(location,locationArray[i]);
+    var distance = geolib.getDistance({
+      latitude: location.lat,
+      longitude: location.lng,
+    },
+      {
+        latitude:locationArray[i].lat,
+        longitude:locationArray[i].lon
+      });
     if(distance <= distanceLimit){
       closestSpots.push(locationArray[i]);
     }
   }
+  console.log(closestSpots)
   return closestSpots;
 }
 
 export default class MainMap extends Component {
   constructor(props) {
     super(props);
-    };
+  };
   mapRef = createRef()
-
+  componentDidMount() {
+    const data = this.props.data;
+    const colors = ['olive', 'teal', 'violet', 'grey', 'orange']
+    
+    for(let i=0;i<data.length;i++) {
+      const name = data[i].name;
+      const radius = data[i].radius;
+      for(let j=0; j < data[i].data.length;j++) {
+        const d = data[i].data[j]
+        Leaflet.circle([d.lat, d.lon], {radius:radius, color:colors[i]})
+        .addTo(this.mapRef.current.leafletElement)
+      }
+    }
+  }
+  
   render() {
-
-    let usCenter = [37.76770558216995, -122.42167745113380];
+    
+    console.log(this.state)
+    let usCenter = [37.7767964,-122.4166041];
     return (
-      <div style={{width:'100%'}}>
+      <Segment>
+      <div style={{width:'100%', pointer:'cursor'}}>
+      
         <Map ref={this.mapRef} onClick={ e => {
           const res = [];
           const data = this.props.data;
+          
           for(let i=0; i < data.length; i++) {
             let closestSpots = closestPoints(e.latlng, data[i].data, data[i].radius);
             
             for(var j = 0; j < closestSpots.length; j++){
               var marker = Leaflet.marker(closestSpots[j])
-                .addTo(this.mapRef.current.leafletElement)
+                //.addTo(this.mapRef.current.leafletElement)
             }
             res.push(closestSpots);
             
           }
           const map = this.mapRef.current.leafletElement
+          this.props.handleClickResult(e.latlng, res, map);
+          
+
+        } } center={usCenter} zoom={17} style={{height: '80vh'}}>
           this.props.handleClickResult(res);
          var url = `https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/${e.latlng.lng},${e.latlng.lat},17,10,50/600x600?access_token=pk.eyJ1IjoiYWxlZmlzY2giLCJhIjoiY2pqdjFpcHd6OWxoNDN3cDF1MXc2Mnk5byJ9.k-6b1DRnakruSFVNzYkczg`; 
          var doc = new jsDoc()
@@ -73,6 +105,7 @@ export default class MainMap extends Component {
         </Map>
         <div id="images"></div>
       </div>
+      </Segment>
     );
   }
   }
