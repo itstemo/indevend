@@ -1,8 +1,7 @@
 import React, {Component, createRef} from 'react'
 import {Map, TileLayer, Marker} from 'react-leaflet'
 import Leaflet from 'leaflet'
-import PrintControl from 'react-leaflet-easyprint';
-var leafletImage = require("leaflet-image")
+// import PrintControl from 'react-leaflet-easyprint';
 
 var geolib = require('geolib')
 
@@ -47,20 +46,7 @@ export default class MainMap extends Component {
           }
           const map = this.mapRef.current.leafletElement
           this.props.handleClickResult(res);
-          leafletImage(map, function(err, canvas) {
-          // now you have canvas
-          // example thing to do with that canvas:
-          var img = document.createElement('img');
-          var dimensions = map.getSize();
-          img.width = dimensions.x;
-          img.height = dimensions.y;
-          img.src = canvas.toDataURL();
-          document.getElementById('images').innerHTML = '';
-          document.getElementById('images').appendChild(img);
-      });
-          
-          
-          
+
         } } center={usCenter} zoom={13.4} style={{height: '80vh'}}>
         <TileLayer
         url= "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png"
