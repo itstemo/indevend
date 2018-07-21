@@ -2,7 +2,6 @@ import React, {Component, createRef} from 'react'
 import {Map, TileLayer, Marker} from 'react-leaflet'
 import Leaflet from 'leaflet'
 var geolib = require('geolib')
-const data = require('./data.json')
 
 var feetPerMeter = 3.28084;
 
@@ -30,7 +29,8 @@ export default class MainMap extends Component {
     return (
       <div style={{width:'100%'}}>
         <Map ref={this.mapRef} onClick={ e => {
-          
+          const res = [];
+          const data = this.props.data;
           for(let i=0; i < data.length; i++) {
             let closestSpots = closestPoints(e.latlng, data[i].data, data[i].radius);
             
@@ -38,8 +38,10 @@ export default class MainMap extends Component {
               var marker = Leaflet.marker(closestSpots[j])
                 .addTo(this.mapRef.current.leafletElement)
             }
+            res.push(closestSpots);
             
           }
+          this.props.handleClickResult(res);
           
           
           
