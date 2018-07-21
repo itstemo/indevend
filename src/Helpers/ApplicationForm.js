@@ -19,6 +19,7 @@ class ApplicationForm extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   handleSubmit = () => {
+    window.fill_apps(this.state);
     this.setState({form_success: true})
   }
 
