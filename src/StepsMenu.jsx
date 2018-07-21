@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Step } from 'semantic-ui-react';
+import { Step } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default class StepsMenu extends Component {
