@@ -3,6 +3,8 @@ import {Map, TileLayer, Marker} from 'react-leaflet'
 import Leaflet from 'leaflet'
 import PrintControl from 'react-leaflet-easyprint';
 var leafletImage = require("leaflet-image")
+var jsDoc = require("jspdf")
+
 
 var geolib = require('geolib')
 
@@ -47,18 +49,21 @@ export default class MainMap extends Component {
           }
           const map = this.mapRef.current.leafletElement
           this.props.handleClickResult(res);
-          leafletImage(map, function(err, canvas) {
-          // now you have canvas
-          // example thing to do with that canvas:
-          var img = document.createElement('img');
-          var dimensions = map.getSize();
-          img.width = dimensions.x;
-          img.height = dimensions.y;
-          img.src = canvas.toDataURL();
-          document.getElementById('images').innerHTML = '';
-          document.getElementById('images').appendChild(img);
-      });
-          
+         var url = `https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/${e.latlng.lng},${e.latlng.lat},17,10,50/600x600?access_token=pk.eyJ1IjoiYWxlZmlzY2giLCJhIjoiY2pqdjFpcHd6OWxoNDN3cDF1MXc2Mnk5byJ9.k-6b1DRnakruSFVNzYkczg`; 
+         var doc = new jsDoc()
+         
+        const img = new Image()
+        img.crossOrigin = '*';
+        img.src = url
+  
+  const canvas = document.createElement('canvas') 
+  const ctx = canvas.getContext('2d')
+    
+  img.onload = function() {
+    ctx.drawImage(img, 0,0);
+    doc.addImage(canvas.toDataURL(),'JPEG',55, 30, 100, 100);
+    doc.save('test')
+  }
           
           
         } } center={usCenter} zoom={13.4} style={{height: '80vh'}}>
