@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from 'react'; 
 import {
   Segment,
   Grid,
@@ -7,9 +7,8 @@ import {
   Image,
   Button
 } from "semantic-ui-react";
-import logo_2 from "./paragraph.png";
 
-class Step1 extends Component {
+class Step3 extends Component {
   render_q2() {
     return (
       <Grid.Row>
@@ -31,7 +30,6 @@ class Step1 extends Component {
         </Grid.Column>
 
         <Grid.Column floated="right" width={4}>
-          <Image bordered size="large" src={logo_2} />
         </Grid.Column>
       </Grid.Row>
     );
@@ -57,7 +55,6 @@ class Step1 extends Component {
               </p>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
-              <Image bordered rounded size="large" src={logo_2} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -90,7 +87,6 @@ class Step1 extends Component {
               </p>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
-              <Image bordered rounded size="large" src={logo_2} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -123,7 +119,6 @@ class Step1 extends Component {
               </p>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
-              <Image bordered rounded size="large" src={logo_2} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -156,7 +151,6 @@ class Step1 extends Component {
               </p>
             </Grid.Column>
             <Grid.Column floated="right" width={6}>
-              <Image bordered rounded size="large" src={logo_2} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -180,7 +174,7 @@ class Step1 extends Component {
                   as="h1"
                   style={{ fontSize: "6em", textAlign: "center" }}
                 >
-                  Step 1: Applying for Permits & Licenses
+                  Step 3: Draft Diagram
                 </Header>
               </Grid.Column>
             </Grid.Row>
@@ -196,4 +190,4 @@ class Step1 extends Component {
   }
 }
 
-export default Step1;
+export default Step3;

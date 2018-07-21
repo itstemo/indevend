@@ -11,32 +11,27 @@ import logo_2 from './paragraph.png';
 import { Grid } from 'semantic-ui-react';
 import StepsMenu from './StepsMenu';
 import Step1 from './step_1'
+import Step3 from './step3'
 import Step2 from './step_2'
 
 class App extends Component {
   render() {
     return (
-      <Router>
+      <Router>      
         {/* Columns have to add up to 16 in one row */}
         <Grid columns={2}>
           <Grid.Row>
             {/* Menu column */}
             <Grid.Column mobile={16} tablet={8} computer={4}>
+            <img src="/logo.png" class="ui small image" />
               <h1>MENU</h1>
-              <img src={logo_2} alt="logo_2" />
               <StepsMenu />
             </Grid.Column>
             {/* Map/Info column */}
             <Grid.Column mobile={16} tablet={8} computer={12}>
-              <h1>Map or whatever</h1>
-              <img src={logo_2} alt="logo_2" />
-              <Route path='/step1' component={Step1} render={() => {
-                return <h1>Step 1</h1>
-              }} />
+              <Route path='/step1' component={Step1}/>
               <Route path='/step2' component={Step2}/>
-              <Route path='/step3' render={() => {
-                return <h1>Step 3</h1>
-              }} />
+              <Route path='/step3' component = {Step3} />
               <Route path='/step4' render={() => {
                 return <h1>Step 4</h1>
               }} />
