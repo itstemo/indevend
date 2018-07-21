@@ -12,7 +12,7 @@ import { Grid } from 'semantic-ui-react';
 import StepsMenu from './StepsMenu';
 import Step1 from './step_1';
 import Step2 from './step_2';
-import Step3 from './step_3';
+import Step3 from './step3';
 import Step4 from './step_4';
 
 
@@ -33,7 +33,7 @@ class App extends Component {
             <Grid.Column mobile={16} tablet={8} computer={12}>
               <Route path='/step1' component={Step1}/>
               <Route path='/step2' component={Step2}/>
-              <Route path='/step3' component ={Step3} />
+              <Route path='/step3' component={Step3} />
               <Route path='/step4' component={Step4} />
               <Route path='/step5' render={() => {
                 return <h1>Step 5</h1>
