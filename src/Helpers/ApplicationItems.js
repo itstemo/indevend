@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import { Button, Header, Image, Item, Icon, Label, Card, Form } from 'semantic-ui-react';
+import ApplicationForm from './ApplicationForm'
 
 export class ApplicationItems extends Component {
   state = {
     form_completed: false,
+    show_form: false,
     photographs_completed: false,
     site_plan_completed: false,
     menu_completed: false,
     fees_completed: false,
   }
 
-  handleClick = (e, { name, value }) => this.setState({ [name]: value })
+  handleClick = (event) => this.setState({ [event.target.name]: event.target.value })
+
+  handleFormClick = () => this.setState({ show_form: !this.state.show_form })
 
   render() {
     return (
@@ -28,9 +32,10 @@ export class ApplicationItems extends Component {
               <Button
                 name='form_completed'
                 value={this.state.form_completed}
-                onClick={this.handleClick}
+                onClick={this.handleFormClick}
               >Fill Application</Button>
             </Item.Extra>
+            {this.state.show_form ? <ApplicationForm /> : <div />}
           </Item.Content>
         </Item>
 
