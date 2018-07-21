@@ -45,7 +45,7 @@ export default class MainMap extends Component {
           
           
           
-        } } center={usCenter} zoom={13.4} style={{height: '80vh', width:'90vw'}}>
+        } } center={usCenter} zoom={13.4} style={{height: '80vh'}}>
         <TileLayer
         url= "https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}@2x.png"
         attribution="Wikimedia maps beta | &copy; <a href='http://osm.org/copyright'>OpenStreetMap</a> contributors"/>

@@ -19,7 +19,16 @@ class Step1 extends Component {
     return (
       <div>
       <h2>lol</h2>
-      <MainMap data={data} handleClickResult={this.handleClickResult}/>
+        <Grid>
+          <Grid.Row>
+          <Grid.Column width={10}>
+            <MainMap data={data} handleClickResult={this.handleClickResult}/>
+          </Grid.Column>
+          <Grid.Column width={2}>
+              hi
+          </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }
