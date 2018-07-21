@@ -4,7 +4,6 @@ import {
   Grid,
   Container,
   Header,
-  Image,
   Button,
   Statistic,
   List,
@@ -12,6 +11,8 @@ import {
 import MainMap from './mainMap.js'
 import Leaflet from 'leaflet'
 var geolib = require('geolib')
+var jsDoc = require("jspdf")
+
 
 
 var feetPerMeter = 3.28084;
@@ -39,6 +40,25 @@ class Step1 extends Component {
     this.setState({clicked:click, clickStatus:'good', offending:null})
     Leaflet.marker(click).addTo(map)
     map.panTo(click)
+
+    var url = `https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/${click.lng},${click.lat},16/600x600?access_token=pk.eyJ1IjoiYWxlZmlzY2giLCJhIjoiY2pqdjFpcHd6OWxoNDN3cDF1MXc2Mnk5byJ9.k-6b1DRnakruSFVNzYkczg`; 
+    var doc = new jsDoc()
+    
+   const img = new Image()
+   img.crossOrigin = '*';
+   img.src = url
+
+    const canvas = document.createElement('canvas') 
+    canvas.width = 600
+    canvas.height = 600
+    const ctx = canvas.getContext('2d')
+    console.log('please')
+    img.onload = function() {
+      ctx.drawImage(img, 0,0);
+      doc.addImage(canvas.toDataURL(),'JPEG',0, 0, 200, 200);
+      doc.save('diagram')
+    }
+
   }
   
   render() {
