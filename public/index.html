@@ -91,20 +91,24 @@
     }
     function fill_food_app(buf, fields){
       fill_fields = {
-          'Applicant Name' : [],
-          'Business / DBA Name': [],
+          'Applicant Name' : [fields['name']],
+          'Business / DBA Name': [fields['business_name']],
           'Mailing Address 1': [],
           'Commissary Address City': [],
-          'Phone #': [],
+          'Phone #': [fields['phone']],
           'State': [],
           'State_2': [],
           "Proposed Location 1": [],
           "Proposed Menu": [],
+          "Hours From 1": [fields['begin_hour']],
+          "Hours To 1": [fields['end_hour']],
+          "MAKE/MODEL": [fields['car_model']],
+          "License Plate": [fields['car_plate']],
       }
       var filled_pdf; // Uint8Array
       filled_pdf = pdfform().transform(buf, fill_fields);
       var blob = new Blob([filled_pdf], {type: 'application/pdf'});
-      saveAs(blob, 'pdfform.js_generated.pdf');
+      saveAs(blob, 'Mobile_Food_Permit_Application.pdf');
     }
     </script>
 
